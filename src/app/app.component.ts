@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
@@ -10,17 +10,23 @@ export class AppComponent implements OnInit {
 
   public form: FormGroup;
 
+
   /** инициализация */
   ngOnInit(): void {
     this.form = new FormGroup({
-      control: new FormControl('')
+      control: new FormControl('', [Validators.required])
     })
   }
 
   /** сабмит формы */
   public submit(): void {
-    console.log(this.form.value);
+    const newItem: IItem = {
+      key: Date.now(),
+      title: this.form.value.control
+    }
+    this.items.push(newItem);
     this.form.reset();
   }
+
 
 }
