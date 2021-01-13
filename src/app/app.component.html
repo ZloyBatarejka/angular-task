@@ -3,6 +3,7 @@
   <input formControlName='control' class="Form--input">
   <div appRedColor class="Form--warning" *ngIf="form.invalid && form.controls.control.touched">Пусто</div>
   <button type="submit" class="Form--button" [disabled]="form.invalid">Принять</button>
+  <button (click)="getItem()" type="button" [disabled]="loadingUser">Получить</button>
 </form>
 <div class="Items" *ngFor="let item of items">
   <div class="Item">
