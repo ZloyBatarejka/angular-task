@@ -20,11 +20,7 @@ export class AppComponent implements OnInit {
 
   /** сабмит формы */
   public submit(): void {
-    const newItem: IItem = {
-      key: Date.now(),
-      title: this.form.value.control
-    }
-    this.items.push(newItem);
+    console.log(this.form.value);
     this.form.reset();
   }
 
