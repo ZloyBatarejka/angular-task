@@ -1,6 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
+interface IItem {
+  key: number,
+  title: string
+}
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -9,10 +14,12 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 export class AppComponent implements OnInit {
 
   public form: FormGroup;
+  public items: IItem[] = [];
 
 
   /** инициализация */
   ngOnInit(): void {
+    this.loadItems();
     this.form = new FormGroup({
       control: new FormControl('', [Validators.required])
     })
@@ -25,8 +32,24 @@ export class AppComponent implements OnInit {
       title: this.form.value.control
     }
     this.items.push(newItem);
+    this.saveItems();
     this.form.reset();
   }
 
+  /** удаление из итемов */
+  public onDelete(key: number) {
+    this.items = this.items.filter(item => item.key !== key);
+    this.saveItems();
+  }
+
+  /** сохранить изменения */
+  private saveItems(): void {
+    localStorage.setItem('angular-items', JSON.stringify(this.items));
+  }
+
+  /** загрузить итемы */
+  private loadItems(): void {
+    this.items = JSON.parse(localStorage.getItem('angular-items') || '[]');
+  }
 
 }

@@ -4,3 +4,9 @@
   <div appRedColor class="Form--warning" *ngIf="form.invalid && form.controls.control.touched">Пусто</div>
   <button type="submit" class="Form--button" [disabled]="form.invalid">Принять</button>
 </form>
+<div class="Items" *ngFor="let item of items">
+  <div class="Item">
+    <div class="Item-title">{{item.title}}</div>
+    <button class="Item-control" (click)="onDelete(item.key)">X</button>
+  </div>
+</div>
